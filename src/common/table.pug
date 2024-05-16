@@ -1,0 +1,15 @@
+table(style="border: 1px solid #333;")
+  thead
+    th Item Name
+    th Quantity
+    th Price
+    th Total
+  each order in Object.values(groupedOrders)
+    tr
+      td= order.item
+      td= order.quantity
+      td= order.totalPrice
+      td= order.quantity * order.totalPrice
+  tr
+    td(colspan="3") Total Profit:
+    td= totalProfit
