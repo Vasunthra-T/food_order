@@ -1,23 +1,32 @@
 const { createClient } = require("redis-promisify");
-const Redis = require('ioredis');
 
 let redisClient;
 
 const initializeRedisClient = () => {
-    let redisURL = process.env.REDIS_URL;
-    console.log("Redis url" + redisURL);
-    if (redisURL) {
-        // Create the Redis client object
+    const redisURL = process.env.REDIS_URL;
+    console.log("Redis URL:", redisURL);
+
+    if (!redisURL) {
+        console.error('REDIS_URL environment variable not set');
+        return;
+    }
+
+    try {
         redisClient = createClient({ url: redisURL });
         redisClient.on("error", (error) => {
             console.error(`Failed to connect to Redis with error: ${error}`);
         });
-        console.log(`Redis client initialized successfully!`);
+
+        redisClient.on("connect", () => {
+            console.log("Redis client connected successfully!");
+        });
+
+    } catch (error) {
+        console.error(`Error initializing Redis client: ${error}`);
     }
 };
 
-
 module.exports = {
     initializeRedisClient,
-    getRedisClient: () => redisClient 
+    getRedisClient: () => redisClient
 };
