@@ -31,6 +31,10 @@ require('./src/routes/order.routes')(app);
 // connect to Redis
 initializeRedisClient();
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
 // Authenticate token
 app.get("/authenticate", auth.verifyToken, async (req, res) => {
   try {
