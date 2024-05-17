@@ -10,6 +10,10 @@ const auth = require('./src/common/authMiddleware');
 const app = express();
 const PORT = 8080;
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+});
+
 const limiter = rateLimit({
     windowMs: 10000, // 15 minutes
     limit: 5, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
@@ -31,9 +35,6 @@ require('./src/routes/order.routes')(app);
 // connect to Redis
 initializeRedisClient();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 // Authenticate token
 app.get("/authenticate", auth.verifyToken, async (req, res) => {
