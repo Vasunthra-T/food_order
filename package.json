@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "keywords": [
     "nodejs",
@@ -15,6 +15,9 @@
   ],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "21.x"
+  },
   "description": "",
   "dependencies": {
     "backblaze-b2": "^1.7.0",
